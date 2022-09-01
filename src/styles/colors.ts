@@ -5,7 +5,8 @@ enum Colors {
    white = '#FFFFFF',
    black = '#000000',
    lightBlack = '#333333',
-   grey = '#989898'
+   grey = '#989898',
+   transparent = 'transparent'
   }
   
   export default Colors

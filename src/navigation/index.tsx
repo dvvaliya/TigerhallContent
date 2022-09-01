@@ -1,6 +1,6 @@
 import Colors from '@styles/colors'
 import { NavigationContainer } from '@react-navigation/native'
-import { ProductListScreen } from '@containers'
+import { ProductsListScreen } from '@containers'
 import { ROUTES } from '@constants'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -16,7 +16,7 @@ export const AppNavigator = () => {
         {/* Note: if more than one screen add them into stack and assigned stack below */}
         <Stack.Screen
           name={ROUTES.PRODUCTS_LIST_SCREEN}
-          component={ProductListScreen}
+          component={ProductsListScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
