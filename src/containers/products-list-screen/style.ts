@@ -7,5 +7,9 @@ export const styles = StyleSheet.create({
     },
     inputContainer:{
         backgroundColor: Colors.tigerHellTeal
+    },
+    card:{
+        borderRadius:5,
+        backgroundColor:Colors.white,
     }
 })
