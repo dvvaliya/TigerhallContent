@@ -98,13 +98,15 @@ export const ProductsListScreen: React.FC = () => {
         }
         renderItem={({ item }) => (
           <ProductCard
+            key={item.name}
             title={item.experts[0].firstName + ' ' + item.experts[0].lastName}
             subTitle={item.name}
-            description={item.experts[0].title}
+            description={item.categories}
             image={item.image.uri}
             footerLabel={item.experts[0].company}
           />
         )}
+        keyExtractor={(item) => item.name}
       />
     </View>
   )

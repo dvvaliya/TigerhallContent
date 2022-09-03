@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
         marginVertical: 4,
     },
     description: {
-        color: Colors.grey,
+        color: Colors.lightBlack,
         fontSize: 14,
         fontWeight: '600',
         marginVertical: 4,

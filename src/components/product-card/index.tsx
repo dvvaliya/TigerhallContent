@@ -17,7 +17,9 @@ export const ProductCard: React.FC<{
       <View style={styles.detailContainer}>
         <Text style={styles.title}>{title}</Text>
         {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
-        {description && <Text style={styles.description}>{description}</Text>}
+        {description && 
+        description.map(value => 
+        <Text key={value.name} style={styles.description}>{value.name}</Text> )}
         {footerLabel && <Text style={styles.footerLabel}>{footerLabel}</Text>}
       </View>
     </Card>
