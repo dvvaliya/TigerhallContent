@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
         borderWidth: 1
     },
     title: {
-        color: Colors.tigerHellOrange,
+        color: Colors.tigerHallOrange,
         fontSize: 12,
         fontWeight: '700',
         marginVertical: 4,
@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
         marginVertical: 4,
     },
     footerLabel: {
-        color: Colors.tigerHellOrange,
+        color: Colors.tigerHallOrange,
         fontSize: 14,
         fontWeight: '600',
     }

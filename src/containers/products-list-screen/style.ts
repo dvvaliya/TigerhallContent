@@ -6,10 +6,13 @@ export const styles = StyleSheet.create({
         backgroundColor: Colors.transparent
     },
     inputContainer:{
-        backgroundColor: Colors.tigerHellTeal
+        backgroundColor: Colors.tigerHallTeal
     },
     card:{
         borderRadius:5,
         backgroundColor:Colors.white,
+    },
+    contentContainer:{
+        paddingBottom: 10 
     }
 })

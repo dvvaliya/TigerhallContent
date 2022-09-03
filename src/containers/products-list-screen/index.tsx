@@ -53,8 +53,8 @@ export const ProductsListScreen: React.FC = () => {
   if (loading) return  <Spinner
   animation='fade'
   visible={loading}
-  color={Colors.tigerHellOrange}
-  overlayColor={Colors.tigerHellTeal}
+  color={Colors.tigerHallOrange}
+  overlayColor={Colors.tigerHallTeal}
   textContent={Strings.LOADING}
   textStyle={globalStyle.spinnerTextStyle}
 />;
@@ -62,6 +62,7 @@ export const ProductsListScreen: React.FC = () => {
 
 
   var returnedFunction = debounce(function (search: string) {
+    // To only call refetch if user types or search anything
     if (search.length > 0) refetch({ keywords: search })
   }, 3000)
 
@@ -79,14 +80,14 @@ export const ProductsListScreen: React.FC = () => {
         value={search}
       />
       <FlatList
-        contentContainerStyle={{ paddingBottom: 10 }}
+        contentContainerStyle={styles.contentContainer}
         data={data?.contentCards?.edges || []}
         onEndReached={() => {
           const currentLength = data?.contentCards?.edges?.length; // Gives cached result
           fetchMore({
             variables: {
               offset: currentLength,
-              limit: 5,
+              limit: limit, 
             },
           }).then(fetchMoreResult => {
             // Update variables.limit for the original query to include
