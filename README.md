@@ -15,7 +15,7 @@ This repository is about Tigerhall content Assesment.
 
 TigerhallContent requires [Node.js](https://nodejs.org/) v10+ to run.
 
-Install the dependencies and devDependencies and start the server.
+Install the dependencies and devDependencies to run the app.
 Follow below steps to install dependencies and run the app.
 
 ```sh
