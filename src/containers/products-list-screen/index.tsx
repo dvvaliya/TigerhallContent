@@ -2,8 +2,10 @@ import { FlatList, View } from 'react-native'
 import React, { useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 
+import Colors from '@styles/colors'
 import { ProductCard } from '@components'
 import { SearchBar } from '@rneui/themed'
+import Spinner from 'react-native-loading-spinner-overlay'
 import Strings from '@constants/strings'
 import { Text } from '@rneui/base'
 import { debounce } from '@helpers'
@@ -12,10 +14,11 @@ import { styles } from './style'
 
 export const ProductsListScreen: React.FC = () => {
   const [search, setSearch] = useState('')
+  const [limit, setLimit] = useState(5); //for initial numbers of result to render
 
   const PRODUCTS = gql`
-    query getProducts($keywords: String) {
-      contentCards(filter: { limit: 20, keywords: $keywords, types: [PODCAST] }) {
+    query getProducts($keywords: String,$offset: Int, $limit: Int) {
+      contentCards(filter: { limit: $limit, offset:$offset, keywords: $keywords, types: [PODCAST] }) {
         edges {
           ... on Podcast {
             name
@@ -42,16 +45,24 @@ export const ProductsListScreen: React.FC = () => {
     }
   `
 
-  const { loading, error, data, refetch } = useQuery(PRODUCTS, {
-    variables: { search },
-    pollInterval: 3000,
+  const { loading, error, data, refetch, fetchMore } = useQuery(PRODUCTS, {
+    variables: { search, offset:0, limit},
   })
 
-  if (loading) return <Text>Loading...</Text>;
+  // for loading animation while scrolling to the last record
+  if (loading) return  <Spinner
+  animation='fade'
+  visible={loading}
+  color={Colors.tigerHellOrange}
+  overlayColor={Colors.tigerHellTeal}
+  textContent={Strings.LOADING}
+  textStyle={globalStyle.spinnerTextStyle}
+/>;
   if (error) return <Text>Error :(</Text>;
 
+
   var returnedFunction = debounce(function (search: string) {
-    refetch({ keywords: search })
+    if (search.length > 0) refetch({ keywords: search })
   }, 3000)
 
   return (
@@ -69,7 +80,21 @@ export const ProductsListScreen: React.FC = () => {
       />
       <FlatList
         contentContainerStyle={{ paddingBottom: 10 }}
-        data={data?.contentCards?.edges}
+        data={data?.contentCards?.edges || []}
+        onEndReached={() => {
+          const currentLength = data?.contentCards?.edges?.length; // Gives cached result
+          fetchMore({
+            variables: {
+              offset: currentLength,
+              limit: 5,
+            },
+          }).then(fetchMoreResult => {
+            // Update variables.limit for the original query to include
+            // the newly added edges items.
+            setLimit(currentLength + fetchMoreResult.data?.contentCards?.edges?.length);
+          });
+        }
+        }
         renderItem={({ item }) => (
           <ProductCard
             title={item.experts[0].firstName + ' ' + item.experts[0].lastName}
